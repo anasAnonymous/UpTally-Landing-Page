@@ -1,0 +1,6 @@
+{
+  "installCommand": "cd jobradar && npm ci",
+  "buildCommand": "cd jobradar && npm run build",
+  "outputDirectory": "jobradar/dist",
+  "framework": "vite"
+}
