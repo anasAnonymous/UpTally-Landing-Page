@@ -15,6 +15,7 @@ import {
   ClipboardCheck,
   CircleDot,
 } from "lucide-react";
+import { supabase } from "./supabaseClient";
 
 /* ---------------------------------------------------------------------- */
 /*  Global tokens                                                          */
@@ -796,11 +797,15 @@ const Footer = () => (
 const WaitlistModal = ({ open, onClose }) => {
   const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!open) {
       setSubmitted(false);
       setEmail("");
+      setError("");
+      setLoading(false);
     }
   }, [open]);
 
@@ -834,8 +839,22 @@ const WaitlistModal = ({ open, onClose }) => {
                   Drop your email and we'll let you know the moment early access opens.
                 </p>
                 <form
-                  onSubmit={(e) => {
+                  onSubmit={async (e) => {
                     e.preventDefault();
+                    setError("");
+                    setLoading(true);
+                    const { error } = await supabase
+                      .from("waitlist")
+                      .insert({ email });
+                    setLoading(false);
+                    if (error) {
+                      setError(
+                        error.code === "23505"
+                          ? "That email is already on the list."
+                          : "Something went wrong. Please try again."
+                      );
+                      return;
+                    }
                     setSubmitted(true);
                   }}
                 >
@@ -847,7 +866,12 @@ const WaitlistModal = ({ open, onClose }) => {
                     placeholder="you@example.com"
                     className="w-full bg-[#0d0f16] border jr-border rounded-xl px-4 py-3 text-[14px] mb-3 outline-none focus:border-[var(--accent)] transition-colors"
                   />
-                  <PrimaryButton className="w-full">Join the Waitlist</PrimaryButton>
+                  {error && (
+                    <p className="text-[13px] text-[var(--flag)] mb-3">{error}</p>
+                  )}
+                  <PrimaryButton className="w-full">
+                    {loading ? "Joining..." : "Join the Waitlist"}
+                  </PrimaryButton>
                 </form>
               </>
             ) : (
