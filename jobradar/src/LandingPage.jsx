@@ -316,7 +316,7 @@ const Nav = ({ onJoin }) => {
           <div className="w-7 h-7 rounded-lg jr-btn-primary flex items-center justify-center">
             <ScanSearch size={15} className="text-white" strokeWidth={2.4} />
           </div>
-          <span className="jr-display font-semibold text-[15px] tracking-tight">Jobradar</span>
+          <span className="jr-display font-semibold text-[15px] tracking-tight">UpTally</span>
         </div>
 
         <div className="hidden md:flex items-center gap-8">
@@ -773,7 +773,7 @@ const Footer = () => (
         <div className="w-6 h-6 rounded-md jr-btn-primary flex items-center justify-center">
           <ScanSearch size={13} className="text-white" strokeWidth={2.4} />
         </div>
-        <span className="jr-display font-semibold text-[14px]">Jobradar</span>
+        <span className="jr-display font-semibold text-[14px]">UpTally</span>
       </div>
 
       <div className="flex items-center gap-6 text-[13px] jr-text-dim">
@@ -782,8 +782,8 @@ const Footer = () => (
         <a href="#" className="hover:text-[var(--text)] transition-colors">Contact</a>
       </div>
 
-      <a href="mailto:hello@jobradar.app" className="jr-mono text-[13px] jr-text-faint hover:text-[var(--text)] transition-colors">
-        hello@jobradar.app
+      <a href="mailto:hello@uptally.app" className="jr-mono text-[13px] jr-text-faint hover:text-[var(--text)] transition-colors">
+        hello@uptally.app
       </a>
     </div>
   </footer>
