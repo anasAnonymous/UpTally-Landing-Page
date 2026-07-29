@@ -504,8 +504,8 @@ const SignalStrip = () => (
     <div className="max-w-7xl mx-auto border-y jr-border grid sm:grid-cols-3">
       {[
         ["01", "ONE CLICK", "No copying. No extra tabs."],
-        ["02", "82 MATCH", "Signal before you spend time."],
-        ["03", "ZERO GUESSWORK", "Know what deserves a proposal."],
+        ["02", "INSTANT MATCH", "See how well a job fits before spending connects."],
+        ["03", "ZERO GUESSWORK", "Know what deserves your time."],
       ].map(([number, label, body]) => (
         <div key={number} className="py-5 px-5 first:pl-0 sm:border-r last:border-r-0 jr-border">
           <div className="flex items-baseline gap-3 mb-2">
