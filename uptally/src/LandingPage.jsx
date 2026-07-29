@@ -27,6 +27,8 @@ const Tokens = () => (
   <style>{`
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
 
+    html, body { max-width: 100%; overflow-x: hidden; }
+
     .jr-root {
       --bg: #010301;
       --bg-soft: #071108;
@@ -45,6 +47,7 @@ const Tokens = () => (
       font-weight: 600;
       background: var(--bg);
       color: var(--text);
+      overflow-x: hidden;
     }
     .jr-root.light {
       --bg: #e8eee7;
@@ -520,7 +523,7 @@ const SignalStrip = () => (
 );
 
 const ProductProof = () => (
-  <section className="px-6 pb-24 lg:pb-32">
+  <section className="px-6 pb-24 lg:pb-32 overflow-hidden">
     <div className="max-w-6xl mx-auto relative">
       <div className="absolute -inset-16 jr-glow blur-3xl opacity-50 pointer-events-none" />
       <BrowserMockup />
