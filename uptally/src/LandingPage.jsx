@@ -17,7 +17,6 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
-import { supabase } from "./supabaseClient";
 
 /* ---------------------------------------------------------------------- */
 /*  Global tokens                                                          */
@@ -27,6 +26,7 @@ const Tokens = () => (
   <style>{`
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
 
+    html { scroll-behavior: smooth; }
     html, body { max-width: 100%; overflow-x: hidden; }
 
     .jr-root {
@@ -396,7 +396,7 @@ const BrowserMockup = () => {
 /*  Navigation                                                             */
 /* ---------------------------------------------------------------------- */
 
-const Nav = ({ onJoin, theme, onToggleTheme }) => {
+const Nav = ({ theme, onToggleTheme }) => {
   const links = [
     { label: "Features", href: "#features" },
     { label: "How it works", href: "#how" },
@@ -431,8 +431,8 @@ const Nav = ({ onJoin, theme, onToggleTheme }) => {
           >
             {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
           </button>
-          <PrimaryButton onClick={onJoin} className="!px-4 !py-2.5 text-[13.5px]">
-            Join Waitlist
+          <PrimaryButton onClick={() => document.getElementById("download")?.scrollIntoView({ behavior: "smooth" })} className="!px-4 !py-2.5 text-[13.5px]">
+            Download Now
           </PrimaryButton>
         </div>
       </div>
@@ -444,7 +444,7 @@ const Nav = ({ onJoin, theme, onToggleTheme }) => {
 /*  Hero                                                                   */
 /* ---------------------------------------------------------------------- */
 
-const Hero = ({ onJoin }) => (
+const Hero = () => (
   <section className="jr-reference-hero relative pt-32 lg:pt-36 pb-20 px-6 overflow-hidden">
     <div className="jr-hero-rings">
       <div className="jr-hero-ring one" />
@@ -487,8 +487,8 @@ const Hero = ({ onJoin }) => (
         custom={3}
         className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3"
       >
-        <PrimaryButton onClick={onJoin} className="w-full sm:w-auto">
-          Join the Waitlist <ArrowRight size={16} />
+        <PrimaryButton onClick={() => document.getElementById("download")?.scrollIntoView({ behavior: "smooth" })} className="w-full sm:w-auto">
+          Download Extension <ArrowRight size={16} />
         </PrimaryButton>
         <GhostButton
           className="w-full sm:w-auto"
@@ -842,15 +842,15 @@ const FAQ = () => {
   const items = [
     {
       q: "Is it available now?",
-      a: "Not yet. We're in the final stretch of building it and opening it up to waitlist members first, in small batches, before a public release.",
+      a: "Yes! You can download the extension directly from this page and install it in your browser following the instructions above.",
     },
     {
       q: "Do I need to install anything?",
-      a: "Just the Chrome extension once it launches. There's no separate app or account setup required to start using it.",
+      a: "Just the Chrome extension. There's no separate desktop app or account setup required to start using it.",
     },
     {
       q: "Is it free?",
-      a: "Everyone who joins the waitlist gets free access during early access. Pricing for the full version will be announced closer to launch.",
+      a: "Yes, it is completely free to use right now. Pricing for premium features may be announced in the future.",
     },
   ];
 
@@ -885,22 +885,60 @@ const FAQ = () => {
 /*  Final CTA                                                              */
 /* ---------------------------------------------------------------------- */
 
-const FinalCTA = ({ onJoin }) => (
-  <section className="px-6 py-24 border-t jr-border">
+const DownloadSection = () => (
+  <section id="download" className="px-6 py-24 border-t jr-border">
     <Reveal>
-      <div className="max-w-3xl mx-auto text-center relative rounded-3xl jr-card px-8 py-16 overflow-hidden">
+      <div className="max-w-4xl mx-auto text-center relative rounded-3xl jr-card px-8 py-12 md:py-16 overflow-hidden">
         <div className="jr-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[280px] blur-3xl opacity-50 pointer-events-none" />
         <div className="relative">
           <h2 className="jr-display text-3xl sm:text-[2.5rem] font-semibold tracking-tight mb-4 leading-tight">
-            Stop wasting time reading every job manually.
+            Ready to stop wasting time?
           </h2>
-          <p className="jr-text-dim text-[16px] mb-9 max-w-md mx-auto leading-relaxed">
-            Join the waitlist today and be among the first freelancers to try the
-            extension before launch.
+          <p className="jr-text-dim text-[16px] mb-9 max-w-xl mx-auto leading-relaxed">
+            Download the extension directly and load it into your browser to start finding better Upwork jobs today.
           </p>
-          <PrimaryButton onClick={onJoin}>
-            Join the Waitlist <ArrowRight size={16} />
-          </PrimaryButton>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
+            <a href="/downloads/UpTally.zip" download className="w-full sm:w-auto">
+              <PrimaryButton className="w-full">
+                Download Extension (.zip) <ArrowRight size={16} />
+              </PrimaryButton>
+            </a>
+          </div>
+
+          <div className="text-left max-w-2xl mx-auto pt-10 border-t jr-border">
+             <Eyebrow>How to install</Eyebrow>
+             <h3 className="jr-display text-2xl font-semibold mb-8">Load the extension in 4 simple steps</h3>
+             <div className="grid sm:grid-cols-2 gap-8">
+               <div className="flex gap-4">
+                 <div className="w-8 h-8 rounded-full bg-[var(--surface-2)] text-[var(--accent)] flex items-center justify-center font-bold shrink-0">1</div>
+                 <div>
+                   <h4 className="jr-display font-semibold mb-1 text-[15.5px]">Extract the ZIP</h4>
+                   <p className="jr-text-dim text-[14px]">Extract the downloaded <code className="jr-mono bg-[var(--surface-2)] px-1.5 py-0.5 rounded text-[12px]">UpTally.zip</code> file to a folder on your computer.</p>
+                 </div>
+               </div>
+               <div className="flex gap-4">
+                 <div className="w-8 h-8 rounded-full bg-[var(--surface-2)] text-[var(--accent)] flex items-center justify-center font-bold shrink-0">2</div>
+                 <div>
+                   <h4 className="jr-display font-semibold mb-1 text-[15.5px]">Open Extensions</h4>
+                   <p className="jr-text-dim text-[14px]">In Chrome, navigate to <code className="jr-mono bg-[var(--surface-2)] px-1.5 py-0.5 rounded text-[12px]">chrome://extensions</code> in your address bar.</p>
+                 </div>
+               </div>
+               <div className="flex gap-4">
+                 <div className="w-8 h-8 rounded-full bg-[var(--surface-2)] text-[var(--accent)] flex items-center justify-center font-bold shrink-0">3</div>
+                 <div>
+                   <h4 className="jr-display font-semibold mb-1 text-[15.5px]">Developer mode</h4>
+                   <p className="jr-text-dim text-[14px]">Toggle the <strong>Developer mode</strong> switch in the top right corner of the page.</p>
+                 </div>
+               </div>
+               <div className="flex gap-4">
+                 <div className="w-8 h-8 rounded-full bg-[var(--surface-2)] text-[var(--accent)] flex items-center justify-center font-bold shrink-0">4</div>
+                 <div>
+                   <h4 className="jr-display font-semibold mb-1 text-[15.5px]">Load unpacked</h4>
+                   <p className="jr-text-dim text-[14px]">Click <strong>Load unpacked</strong> and select the folder you extracted in step 1.</p>
+                 </div>
+               </div>
+             </div>
+          </div>
         </div>
       </div>
     </Reveal>
@@ -935,111 +973,11 @@ const Footer = () => (
 );
 
 /* ---------------------------------------------------------------------- */
-/*  Waitlist modal                                                         */
-/* ---------------------------------------------------------------------- */
-
-const WaitlistModal = ({ open, onClose }) => {
-  const [submitted, setSubmitted] = useState(false);
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center px-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <motion.div
-            className="absolute inset-0 bg-black/70"
-            onClick={onClose}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          />
-          <motion.div
-            initial={{ opacity: 0, y: 16, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.97 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="relative jr-card rounded-2xl p-8 w-full max-w-sm"
-          >
-            {!submitted ? (
-              <>
-                <h3 className="jr-display text-xl font-semibold mb-2">Join the waitlist</h3>
-                <p className="jr-text-dim text-[14px] mb-6 leading-relaxed">
-                  Drop your email and we'll let you know the moment early access opens.
-                </p>
-                <form
-                  onSubmit={async (e) => {
-                    e.preventDefault();
-                    setError("");
-                    setLoading(true);
-                    const { error } = await supabase
-                      .from("waitlist")
-                      .insert({ email });
-                    setLoading(false);
-                    if (error) {
-                      setError(
-                        error.code === "23505"
-                          ? "That email is already on the list."
-                          : "Something went wrong. Please try again."
-                      );
-                      return;
-                    }
-                    setSubmitted(true);
-                  }}
-                >
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@example.com"
-                    className="w-full bg-[#151916] border jr-border rounded-xl px-4 py-3 text-[14px] mb-3 outline-none focus:border-[var(--accent)] transition-colors"
-                  />
-                  {error && (
-                    <p className="text-[13px] text-[var(--flag)] mb-3">{error}</p>
-                  )}
-                  <PrimaryButton className="w-full">
-                    {loading ? "Joining..." : "Join the Waitlist"}
-                  </PrimaryButton>
-                </form>
-              </>
-            ) : (
-              <div className="text-center py-4">
-                <div className="w-11 h-11 rounded-full bg-[#1b2a24] border border-[#2a3d33] flex items-center justify-center mx-auto mb-4">
-                  <Check size={18} className="text-[var(--good)]" />
-                </div>
-                <h3 className="jr-display text-lg font-semibold mb-1.5">You're on the list</h3>
-                <p className="jr-text-dim text-[14px]">We'll email you as soon as it's ready.</p>
-              </div>
-            )}
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 jr-text-faint hover:text-[var(--text)] transition-colors"
-              aria-label="Close"
-            >
-              <X size={18} />
-            </button>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-};
-
-/* ---------------------------------------------------------------------- */
 /*  Page                                                                   */
 /* ---------------------------------------------------------------------- */
 
 export default function LandingPage() {
-  const [modalOpen, setModalOpen] = useState(false);
   const [theme, setTheme] = useState(() => localStorage.getItem("uptally-theme") || "dark");
-  const openModal = () => setModalOpen(true);
   useEffect(() => {
     localStorage.setItem("uptally-theme", theme);
   }, [theme]);
@@ -1047,8 +985,8 @@ export default function LandingPage() {
   return (
     <div className={`jr-root jr-grain min-h-screen antialiased ${theme}`}>
       <Tokens />
-      <Nav onJoin={openModal} theme={theme} onToggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")} />
-      <Hero onJoin={openModal} />
+      <Nav theme={theme} onToggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")} />
+      <Hero />
       <SignalStrip />
       <ProductProof />
       <Problem />
@@ -1057,9 +995,8 @@ export default function LandingPage() {
       <Comparison />
       <WhoFor />
       <FAQ />
-      <FinalCTA onJoin={openModal} />
+      <DownloadSection />
       <Footer />
-      <WaitlistModal key={modalOpen ? "waitlist-open" : "waitlist-closed"} open={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
 }
