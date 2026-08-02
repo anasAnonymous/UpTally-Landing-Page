@@ -405,12 +405,12 @@ const Nav = ({ theme, onToggleTheme }) => {
 
   return (
     <div className="fixed top-4 left-0 right-0 z-50 px-4">
-      <div className="jr-nav-shell max-w-6xl mx-auto px-5 h-[68px] rounded-full flex items-center justify-between">
+      <div className="jr-nav-shell max-w-6xl mx-auto px-3 sm:px-5 h-[68px] rounded-full flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-11 h-11 rounded-xl bg-white border border-white/80 overflow-hidden flex items-center justify-center">
+          <div className="w-11 h-11 rounded-xl bg-white border border-white/80 overflow-hidden flex items-center justify-center shrink-0">
             <img src="/upTally_logo_removebg.png" alt="UpTally" className="w-full h-full object-contain" />
           </div>
-          <span className="jr-display font-semibold text-[15px] tracking-tight">UpTally</span>
+          <span className="jr-display font-semibold text-[15px] tracking-tight hidden min-[360px]:inline-block">UpTally</span>
         </div>
 
         <div className="hidden md:flex items-center gap-8">
@@ -421,18 +421,19 @@ const Nav = ({ theme, onToggleTheme }) => {
           ))}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           <button
             type="button"
             onClick={onToggleTheme}
             aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
             aria-pressed={theme === "light"}
-            className="jr-theme-toggle rounded-full w-9 h-9 inline-flex items-center justify-center transition-colors"
+            className="jr-theme-toggle rounded-full w-9 h-9 inline-flex items-center justify-center transition-colors shrink-0"
           >
             {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
           </button>
-          <PrimaryButton onClick={() => document.getElementById("download")?.scrollIntoView({ behavior: "smooth" })} className="!px-4 !py-2.5 text-[13.5px]">
-            Download Now
+          <PrimaryButton onClick={() => document.getElementById("download")?.scrollIntoView({ behavior: "smooth" })} className="!px-3 sm:!px-4 !py-2.5 text-[13px] sm:text-[13.5px] whitespace-nowrap shrink-0">
+            <span className="max-[360px]:hidden">Download Now</span>
+            <span className="hidden max-[360px]:inline">Download</span>
           </PrimaryButton>
         </div>
       </div>
