@@ -960,15 +960,10 @@ const Footer = () => (
         <span className="jr-display font-semibold text-[14px]">UpTally</span>
       </div>
 
-      <div className="flex items-center gap-6 text-[13px] jr-text-dim">
-        <a href="#" className="hover:text-[var(--text)] transition-colors">Privacy Policy</a>
-        <a href="#" className="hover:text-[var(--text)] transition-colors">Terms</a>
-        <a href="#" className="hover:text-[var(--text)] transition-colors">Contact</a>
-      </div>
 
-      <a href="mailto:hello@uptally.app" className="jr-mono text-[13px] jr-text-faint hover:text-[var(--text)] transition-colors">
-        hello@uptally.app
-      </a>
+      <span className="text-[13px] jr-text-dim">
+        &copy; {new Date().getFullYear()} UpTally. All rights reserved.
+      </span>
     </div>
   </footer>
 );
